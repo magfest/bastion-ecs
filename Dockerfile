@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk add --no-cache openssh bash curl
+RUN apk add --no-cache openssh bash curl sudo
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x entrypoint.sh
 

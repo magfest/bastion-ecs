@@ -2,7 +2,7 @@
 IFS=","
 for USER in $USERS; do
     echo "Adding $USER..."
-    adduser -h "/home/$USER" -s /bin/bash -D "$USER"
+    adduser -h "/home/$USER" -s /bin/bash -D "$USER" wheel
     passwd -u "$USER"
     mkdir -p "/home/$USER/.ssh"
     curl -so "/home/$USER/.ssh/authorized_keys" "https://github.com/$USER.keys"
@@ -18,6 +18,8 @@ if [ -d /efs/keys ]; then
     chmod 644 /etc/ssh/ssh_host*key.pub
     ls -l /etc/ssh/
 fi
+
+echo "%wheel  ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/wheel
 
 ssh-keygen -A
 exec /usr/sbin/sshd -D -e "$@"
