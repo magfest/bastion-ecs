@@ -2,7 +2,8 @@
 IFS=","
 for USER in $USERS; do
     echo "Adding $USER..."
-    adduser -h "/home/$USER" -s /bin/bash -D "$USER" wheel
+    adduser -h "/home/$USER" -s /bin/bash -D "$USER"
+    adduser "$USER" wheel
     passwd -u "$USER"
     mkdir -p "/home/$USER/.ssh"
     curl -so "/home/$USER/.ssh/authorized_keys" "https://github.com/$USER.keys"
